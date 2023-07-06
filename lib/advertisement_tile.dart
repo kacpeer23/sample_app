@@ -89,42 +89,44 @@ class _AdvertisementTileState extends State<AdvertisementTile> with AutomaticKee
     native.customOptions = {'darkMode': isDarkMode};
     native.load();
     super.build(context);
-    return Obx(() {
-      return Visibility(
-        visible: !adError.value,
-        child: Stack(children: [
-          Positioned.fill(
-            child: Container(
-                margin: const EdgeInsets.only(top: 4.3, bottom: 8.3, left: 5.3, right: 5.3),
-                decoration: BoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor, borderRadius: BorderRadius.circular(16))),
-          ),
-          Container(
-            decoration:
-                BoxDecoration(color: context.theme.scaffoldBackgroundColor, borderRadius: BorderRadius.circular(16)),
-            margin: const EdgeInsets.only(
-              left: 5.3,
-              right: 5.3,
-              top: 4.3,
-              bottom: 8.3,
+    return SafeArea(
+      child: Obx(() {
+        return Visibility(
+          visible: !adError.value,
+          child: Stack(children: [
+            Positioned.fill(
+              child: Container(
+                  margin: const EdgeInsets.only(top: 4.3, bottom: 8.3, left: 5.3, right: 5.3),
+                  decoration: BoxDecoration(
+                      color: context.theme.scaffoldBackgroundColor, borderRadius: BorderRadius.circular(16))),
             ),
-            width: Get.width,
-            height: 70,
-            child: Obx(() {
-              return Stack(children: [
-                isAdLoaded.value ? AdWidget(ad: native) : Container(),
-                Visibility(
-                  visible: !isAdVisible.value,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              ]);
-            }),
-          ),
-        ]),
-      );
-    });
+            Container(
+              decoration:
+                  BoxDecoration(color: context.theme.scaffoldBackgroundColor, borderRadius: BorderRadius.circular(16)),
+              margin: const EdgeInsets.only(
+                left: 5.3,
+                right: 5.3,
+                top: 4.3,
+                bottom: 8.3,
+              ),
+              width: Get.width,
+              height: 70,
+              child: Obx(() {
+                return Stack(children: [
+                  isAdLoaded.value ? AdWidget(ad: native) : Container(),
+                  Visibility(
+                    visible: !isAdVisible.value,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                ]);
+              }),
+            ),
+          ]),
+        );
+      }),
+    );
   }
 
   @override
